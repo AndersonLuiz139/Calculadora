@@ -8,11 +8,12 @@ buttons.forEach((button) => {
     const value = button.textContent;
 
     if (!isNaN(value) || validButtons.includes(value)) display.value += value;
-  
-    if (value === 'C') display.value = '';
     
+    if (value === 'C') display.value = '';
+
     if (value === 'DEL') display.value = display.value.slice(0, -1);
     
+
     if (value === '=') {
       try {
         display.value = eval(display.value);
