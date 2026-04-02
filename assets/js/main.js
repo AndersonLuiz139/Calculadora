@@ -1,66 +1,122 @@
-const display = document.querySelector('.display');
-const buttons = document.querySelectorAll('button');
-
-const validButtons = ['+', '-', '*', '/', '(', ')', '.'];
-
-function addToDisplay(value) {
-  display.value += value;
-}
-
-function clearDisplay() {
-  display.value = '';
-}
-
-function deleteOne() {
-  display.value = display.value.slice(0, -1);
-}
-
-function calculate() {
-  try {
-    display.value = eval(display.value);
-  } catch {
-    display.value = 'Erro';
+class Calculator {
+  constructor() {
+    this.display = document.querySelector('.display');
+    this.buttons = document.querySelectorAll('button');
+    this.validOperators = ['+', '-', '*', '/', '(', ')', '.'];
+    this.init();
   }
-}
 
-buttons.forEach((button) => {
-  button.addEventListener('click', () => {
-    const value = button.textContent;
+  init() {
+    this.handleButtons();
+    this.handleKeyboard();
+  }
 
-    if (!isNaN(value) || validButtons.includes(value)) {
-      addToDisplay(value);
+  handleButtons() {
+    this.buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const value = button.textContent;
+
+        if (this.isValidInput(value)) {
+          this.addToDisplay(value);
+          return;
+        }
+
+        if (value === 'C') {
+          this.clearDisplay();
+          return;
+        }
+
+        if (value === 'DEL') {
+          this.deleteOne();
+          return;
+        }
+
+        if (value === '=') {
+          this.calculate();
+        }
+      });
+    });
+  }
+
+  handleKeyboard() {
+    document.addEventListener('keydown', (event) => {
+      const key = event.key;
+
+      if (this.isValidInput(key)) {
+        this.addToDisplay(key);
+        return;
+      }
+
+      if (key === 'Enter') {
+        event.preventDefault();
+        this.calculate();
+      }
+
+      if (key === 'Backspace') {
+        this.deleteOne();
+      }
+
+      if (key === 'Escape') {
+        this.clearDisplay();
+      }
+    });
+  }
+
+  isValidInput(value) {
+    return !isNaN(value) || this.validOperators.includes(value);
+  }
+
+  addToDisplay(value) {
+    if (this.display.value === 'Erro') {
+      this.display.value = '';
     }
 
-    if (value === 'C') {
-      clearDisplay();
+    const lastChar = this.display.value.slice(-1);
+    const operators = ['+', '-', '*', '/'];
+
+    if (operators.includes(lastChar) && operators.includes(value)) {
+      return;
     }
 
-    if (value === 'DEL') {
-      deleteOne();
+    this.display.value += value;
+  }
+
+  clearDisplay() {
+    this.display.value = '';
+  }
+
+  deleteOne() {
+    if (this.display.value === 'Erro') {
+      this.clearDisplay();
+      return;
     }
 
-    if (value === '=') {
-      calculate();
+    this.display.value = this.display.value.slice(0, -1);
+  }
+
+  calculate() {
+    try {
+      const expression = this.display.value;
+
+      if (!expression) return;
+
+      const result = eval(expression);
+
+      if (
+        result === undefined ||
+        result === null ||
+        Number.isNaN(result) ||
+        !Number.isFinite(result)
+      ) {
+        this.display.value = 'Erro';
+        return;
+      }
+
+      this.display.value = Number(result.toFixed(2));
+    } catch {
+      this.display.value = 'Erro';
     }
-  });
-});
-
-document.addEventListener('keydown', (event) => {
-  const key = event.key;
-
-  if (!isNaN(key) || validButtons.includes(key)) {
-    addToDisplay(key);
   }
+}
 
-  if (key === 'Enter') {
-    calculate();
-  }
-
-  if (key === 'Backspace') {
-    deleteOne();
-  }
-
-  if (key === 'Escape') {
-    clearDisplay();
-  }
-});
+new Calculator(); 
