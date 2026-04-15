@@ -1,3 +1,11 @@
+:root {
+  --bg: radial-gradient(circle at top, #1e293b, #0f172a 60%);
+  --card: rgba(255, 255, 255, 0.08);
+  --text: #ffffff;
+  --button: rgba(255, 255, 255, 0.12);
+  --button-hover: rgba(255, 255, 255, 0.2);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -9,15 +17,24 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: radial-gradient(circle at top, #1e293b, #0f172a 60%);
+  background: var(--bg);
   font-family: Arial, Helvetica, sans-serif;
   padding: 20px;
+  color: var(--text);
+}
+
+body.light {
+  --bg: #f1f5f9;
+  --card: #ffffff;
+  --text: #0f172a;
+  --button: #e2e8f0;
+  --button-hover: #cbd5e1;
 }
 
 .calculator {
   width: 100%;
   max-width: 360px;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--card);
   backdrop-filter: blur(14px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 24px;
@@ -52,14 +69,14 @@ button {
   border: none;
   border-radius: 16px;
   cursor: pointer;
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--button);
   color: #fff;
   transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
 }
 
 button:hover {
   transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--button-hover);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 

@@ -112,11 +112,11 @@ class Calculator {
         return;
       }
 
-      this.display.value = Number(result.toFixed(2));
+      this.display.value = result;
     } catch {
       this.display.value = 'Erro';
     }
   }
 }
 
-new Calculator(); 
+new Calculator();
