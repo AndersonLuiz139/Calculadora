@@ -2,6 +2,7 @@ class Calculator {
   constructor() {
     this.display = document.querySelector('.display');
     this.buttons = document.querySelectorAll('button');
+    this.themeToggle = document.querySelector('.theme-toggle');
     this.validOperators = ['+', '-', '*', '/', '(', ')', '.'];
     this.init();
   }
@@ -9,6 +10,8 @@ class Calculator {
   init() {
     this.handleButtons();
     this.handleKeyboard();
+    this.loadTheme();
+    this.handleThemeToggle();
   }
 
   handleButtons() {
@@ -60,6 +63,35 @@ class Calculator {
         this.clearDisplay();
       }
     });
+  }
+
+  handleThemeToggle() {
+  this.themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('light');
+
+    const icon = this.themeToggle.querySelector('i');
+
+    if (document.body.classList.contains('light')) {
+      icon.classList.remove('bi-moon');
+      icon.classList.add('bi-sun');
+      localStorage.setItem('theme', 'light');
+    } else {
+      icon.classList.remove('bi-sun');
+      icon.classList.add('bi-moon');
+      localStorage.setItem('theme', 'dark');
+    }
+  });
+}
+
+  loadTheme(){
+    const savedTheme = localStorage.getItem('theme');
+    const icon = this.themeToggle.querySelector('i');
+
+    if(savedTheme === 'light'){
+      document.body.classList.add('light');
+      icon.classList.remove('bi-moon');
+      icon.classList.add('bi-sun');
+    }
   }
 
   isValidInput(value) {
