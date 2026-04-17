@@ -71,6 +71,11 @@ class Calculator {
 
     const icon = this.themeToggle.querySelector('i');
 
+    icon.style.transform = "rotate(180deg)";
+    setTimeout(() => {
+      icon.style.transform = "rotate(0deg)";
+    }, 300);
+
     if (document.body.classList.contains('light')) {
       icon.classList.remove('bi-moon');
       icon.classList.add('bi-sun');
