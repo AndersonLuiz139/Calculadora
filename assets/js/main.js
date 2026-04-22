@@ -5,6 +5,7 @@ class Calculator {
     this.history = JSON.parse(localStorage.getItem('history')) || [];
     this.historyList = document.querySelector('.history-list');
     this.themeToggle = document.querySelector('.theme-toggle');
+    this.clearHistoryButton = document.querySelector('.clear-history');
     this.validOperators = ['+', '-', '*', '/', '(', ')', '.'];
     this.init();
   }
@@ -15,6 +16,7 @@ class Calculator {
     this.loadTheme();
     this.handleThemeToggle();
     this.renderHistory();
+    this.handleClearHistory();
   }
 
   handleButtons() {
@@ -104,8 +106,12 @@ class Calculator {
 
   saveToHistory(expression, result){
     const item = `${expression} = ${result}`;
-
     this.history.unshift(item);
+
+    if (this.history.length > 10) {
+      this.history = this.history.slice(0, 10);
+    }
+
     localStorage.setItem('history', JSON.stringify(this.history));
     this.renderHistory();
   }
@@ -121,6 +127,14 @@ class Calculator {
       });
       this.historyList.appendChild(li);
     });
+  }
+
+  handleClearHistory(){
+    this.clearHistoryButton.addEventListener('click', () => {
+      this.history = [];
+      localStorage.removeItem('history');
+      this.renderHistory();
+    })
   }
 
   isValidInput(value) {
