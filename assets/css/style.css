@@ -64,7 +64,8 @@ body {
 
 .calculator {
   width: 100%;
-  max-width: 360px;
+  flex: 1 1 320px;
+  max-width: 400px;
   background: var(--card);
   backdrop-filter: blur(14px);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -127,15 +128,21 @@ button:active {
   transform: scale(0.96);
 }
 
-.app{
-  display: grid;
-  grid-template-columns: 360px 260px;
+.app {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center;
   gap: 20px;
+  width: 100%;
+  max-width: 1000px; 
   align-items: start;
 }
 
 .history{
   background: var(--card);
+  flex: 1 1 260px;
+  max-width: 400px;
+  min-height: 300px;
   border-radius: 24px;
   padding: 20px;
   height: 100%;
@@ -201,4 +208,29 @@ button:active {
 
 .clear-history:active {
   transform: scale(0.95);
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+    align-items: flex-start; 
+  }
+
+  .app {
+    flex-direction: column; 
+    align-items: center;
+  }
+
+  .calculator, .history {
+    width: 90%;
+  }
+
+  .display {
+    font-size: 1.5rem; 
+    height: 70px;
+  }
+
+  button {
+    height: 55px; 
+  }
 }
