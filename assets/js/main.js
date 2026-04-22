@@ -2,6 +2,8 @@ class Calculator {
   constructor() {
     this.display = document.querySelector('.display');
     this.buttons = document.querySelectorAll('button');
+    this.history = document.querySelector('.history-list');
+    this.historyList = document.querySelector('.history-list');
     this.themeToggle = document.querySelector('.theme-toggle');
     this.validOperators = ['+', '-', '*', '/', '(', ')', '.'];
     this.init();
@@ -97,6 +99,26 @@ class Calculator {
       icon.classList.remove('bi-moon');
       icon.classList.add('bi-sun');
     }
+  }
+
+  saveToHistory(expression, result){
+    const item = `${expression} = ${result}`;
+
+    this.history.unshift(item);
+    this.renderHistory();
+  }
+
+  renderHistory(){
+    this.historyList.innerHTML = '';
+
+    this.history.forEach((item) => {
+      const li = document.createElement('li');
+      li.textContent = item;
+      li.addEventListener('click', () => {
+        this.display.value = item.split('=')[0].trim();
+      });
+      this.historyList.appendChild(li);
+    });
   }
 
   isValidInput(value) {
