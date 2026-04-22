@@ -2,7 +2,7 @@ class Calculator {
   constructor() {
     this.display = document.querySelector('.display');
     this.buttons = document.querySelectorAll('button');
-    this.history = document.querySelector('.history-list');
+    this.history = JSON.parse(localStorage.getItem('history')) || [];
     this.historyList = document.querySelector('.history-list');
     this.themeToggle = document.querySelector('.theme-toggle');
     this.validOperators = ['+', '-', '*', '/', '(', ')', '.'];
@@ -14,6 +14,7 @@ class Calculator {
     this.handleKeyboard();
     this.loadTheme();
     this.handleThemeToggle();
+    this.renderHistory();
   }
 
   handleButtons() {
@@ -105,6 +106,7 @@ class Calculator {
     const item = `${expression} = ${result}`;
 
     this.history.unshift(item);
+    localStorage.setItem('history', JSON.stringify(this.history));
     this.renderHistory();
   }
 
@@ -172,6 +174,7 @@ class Calculator {
       }
 
       this.display.value = result;
+      this.saveToHistory(expression, result);
     } catch {
       this.display.value = 'Erro';
     }
