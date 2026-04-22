@@ -168,6 +168,14 @@ button:active {
   padding-right: 5px;
 }
 
+.history-list li{
+  padding: 6px 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
 .history li:hover{
   background: var(--button-hover);
 }
