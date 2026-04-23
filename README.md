@@ -4,13 +4,6 @@ Uma calculadora web moderna desenvolvida com **HTML, CSS e JavaScript puro**, fo
 
 ---
 
-## 🚀 Demonstração
-
-🔗 Acesse a aplicação: [COLOQUE_AQUI_SEU_LINK]  
-💻 Repositório: [COLOQUE_AQUI_SEU_GITHUB]
-
----
-
 ## ✨ Funcionalidades
 
 - Operações matemáticas completas (+, −, ×, ÷)
